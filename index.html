@@ -12,6 +12,7 @@
             }
             
             .preview {
+                font-weight: bold;
                 font-family: "TTLakes-Medium", "Microsoft JhengHei";
                 background-color: rgba(33, 33, 33, 1);
                 height: 100px;
@@ -87,11 +88,28 @@
             .preview-grey2 {
                 color: #afc2d8;
             }
+
+            .buttons {
+                margin-right: 5px;
+            }
+
+            .buttons button {
+                background-color: var(--button-color);
+                width: 25px;
+                height: 25px;
+                border: 0px;
+                box-shadow: 0px 0px 3px #000;
+            }
         </style>
     </head>
     <body>
         <div id="app">
             <div class="inputBox">
+                Input:
+                <br>
+                <span v-for="(color, index) in colors" class="buttons" :key="index">
+                    <button @click="add(index)" :style=`--button-color:${color.color}`></button>
+                </span>
                 <textarea id="#inputBox" ref="input" v-model="content"></textarea>
             </div>
             <div class="preview" v-html="rendered">
@@ -104,11 +122,94 @@
                 el: "#app",
                 data(){
                     return {
-                        content: ""
+                        content: "",
+                        colors: [
+                            {
+                                name: "DEFAULT",
+                                color: ""
+                            },
+                            {
+                                name: "TEAMCOLOR",
+                                color: "000"
+                            },
+                            {
+                                name: "RED",
+                                color: "FE4040"
+                            },
+                            {
+                                name: "LIGHTRED",
+                                color: "EA4B4B"
+                            },
+                            {
+                                name: "DARKRED",
+                                color: "FC0000"
+                            },
+                            {
+                                name: "BLUEGREY",
+                                color: "AFC2D8"
+                            },
+                            {
+                                name: "BLUE",
+                                color: "5E97D8"
+                            },
+                            {
+                                name: "DARKBLUE",
+                                color: "4B69FE"
+                            },
+                            {
+                                name: "PURPLE",
+                                color: "B980EF"
+                            },
+                            {
+                                name: "ORCHID",
+                                color: "D22CE5"
+                            },
+                            {
+                                name: "YELLOW",
+                                color: "ECE37A"
+                            },
+                            {
+                                name: "GOLD",
+                                color: "E3AD39"
+                            },
+                            {
+                                name: "LIGHTGREEN",
+                                color: "BEFE8F"
+                            },
+                            {
+                                name: "GREEN",
+                                color: "40FE40"
+                            },
+                            {
+                                name: "LIME",
+                                color: "A1FE47"
+                            },
+                            {
+                                name: "GREY",
+                                color: "C4C9CF"
+                            },
+                            {
+                                name: "GREY2",
+                                color: "AFC2D8"
+                            }
+                        ]
                     }
                 },
                 mounted(){
                     console.log("hi");
+                },
+                methods:{
+                    add(index){
+                        let vm = this;
+                        let start = vm.$refs["input"].selectionStart;
+                        let end = vm.$refs["input"].selectionEnd;
+                        vm.content = vm.content.substr(0, start) + `{${vm.colors[index].name}}` + vm.content.substr(end, vm.content.length);
+                        vm.$refs["input"].focus();
+                        let newPos = start + vm.colors[index].name.length + 2;
+                        setTimeout(() => {
+                            vm.$refs["input"].setSelectionRange(newPos, newPos);
+                        })
+                    }
                 },
                 computed:{
                     rendered(){
