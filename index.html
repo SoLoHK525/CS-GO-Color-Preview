@@ -1,0 +1,148 @@
+<html>
+    <head>
+        <title>CS:GO Advertisement Editor</title>
+        <style>
+            @font-face {
+                font-family: "TTLakes-Medium";
+                src: url("./TypeType - TTLakes-Medium.otf");
+            }
+
+            textarea {
+                width: 600px;
+            }
+            
+            .preview {
+                font-family: "TTLakes-Medium", "Microsoft JhengHei";
+                background-color: rgba(33, 33, 33, 1);
+                height: 100px;
+                width: 600px;
+                padding: 15 15 15 15;
+                color: #fefefe;
+            }
+
+            .preview-default {
+                color: #fefefe;
+            }
+
+            .preview-teamcolor {
+                color: #5e97d8;
+            }
+
+            .preview-red {
+                color: #fe4040;
+            }
+
+            .preview-lightred {
+                color: #ea4b4b;
+            }
+
+            .preview-darkred {
+                color: #fc0000;
+            }
+            
+            .preview-bluegrey {
+                color: #afc2d8;
+            }
+            
+            .preview-blue {
+                color: #5e97d8;
+            }
+            
+            .preview-darkblue {
+                color: #4b69fe;
+            }
+            
+            .preview-purple {
+                color: #b980ef;
+            }
+            
+            .preview-orchid {
+                color: #d22ce5;
+            }
+            
+            .preview-yellow {
+                color: #ece37a;
+            }
+
+            .preview-gold {
+                color: #e3ad39;
+            }
+            
+            .preview-lightgreen {
+                color: #befe8f;
+            }
+            
+            .preview-green {
+                color: #40fe40;
+            }
+            
+            .preview-lime {
+                color: #a1fe47;
+            }
+            
+            .preview-grey {
+                color: #c4c9cf;
+            }
+
+            .preview-grey2 {
+                color: #afc2d8;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <div class="inputBox">
+                <textarea id="#inputBox" ref="input" v-model="content"></textarea>
+            </div>
+            <div class="preview" v-html="rendered">
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script>
+            const colorRegEx = /\{(default|teamcolor|red|lightred|darkred|bluegrey|blue|darkblue|purple|orchid|yellow|gold|lightgreen|green|lime|grey|grey2)\}/gi;
+            new Vue({
+                el: "#app",
+                data(){
+                    return {
+                        content: ""
+                    }
+                },
+                mounted(){
+                    console.log("hi");
+                },
+                computed:{
+                    rendered(){
+                        let vm = this;
+                        let outputStr = this.content;
+                        const iterator = this.content.matchAll(colorRegEx);
+                        let next = iterator.next();
+                        let i = 0;
+                        while(next.value){
+                            console.log(next.value);
+                            outputStr = outputStr.replace(next.value[0], `${i > 0 ? '</span>' : ''}<span class="preview-${next.value[1]}">`);
+                            next = iterator.next();
+                            i++;
+                        }
+                        outputStr += "</span>";
+                        /*
+                        for(i = 0; i < vm.content.length; i++){
+                            if(vm.content.charAt(i) != "{"){
+                                outputStr += vm.content.charAt(i);
+                                continue;
+                            }
+                            for(j = i + 1; j < vm.content.length; j++){
+                                //if(vm.content.charAt(j) == " ") break;
+                                if(vm.content.charAt(j) != "}"){
+                                    outputStr += vm.content.charAt(j);
+                                    continue;
+                                };
+                            }
+                            return outputStr;
+                        }*/
+                        return outputStr;
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
