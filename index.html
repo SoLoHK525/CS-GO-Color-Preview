@@ -95,8 +95,8 @@
 
             .buttons button {
                 background-color: var(--button-color);
-                width: 25px;
-                height: 25px;
+                width: 30px;
+                height: 30px;
                 border: 0px;
                 box-shadow: 0px 0px 3px #000;
             }
@@ -108,8 +108,9 @@
                 Input:
                 <br>
                 <span v-for="(color, index) in colors" class="buttons" :key="index">
-                    <button @click="add(index)" :style=`--button-color:${color.color}`></button>
+                    <button @click="add(index)" :style="'--button-color:' + color.color"></button>
                 </span>
+                <br>
                 <textarea id="#inputBox" ref="input" v-model="content"></textarea>
             </div>
             <div class="preview" v-html="rendered">
@@ -126,71 +127,71 @@
                         colors: [
                             {
                                 name: "DEFAULT",
-                                color: ""
+                                color: "#fff"
                             },
                             {
                                 name: "TEAMCOLOR",
-                                color: "000"
+                                color: "#000"
                             },
                             {
                                 name: "RED",
-                                color: "FE4040"
+                                color: "#FE4040"
                             },
                             {
                                 name: "LIGHTRED",
-                                color: "EA4B4B"
+                                color: "#EA4B4B"
                             },
                             {
                                 name: "DARKRED",
-                                color: "FC0000"
+                                color: "#FC0000"
                             },
                             {
                                 name: "BLUEGREY",
-                                color: "AFC2D8"
+                                color: "#AFC2D8"
                             },
                             {
                                 name: "BLUE",
-                                color: "5E97D8"
+                                color: "#5E97D8"
                             },
                             {
                                 name: "DARKBLUE",
-                                color: "4B69FE"
+                                color: "#4B69FE"
                             },
                             {
                                 name: "PURPLE",
-                                color: "B980EF"
+                                color: "#B980EF"
                             },
                             {
                                 name: "ORCHID",
-                                color: "D22CE5"
+                                color: "#D22CE5"
                             },
                             {
                                 name: "YELLOW",
-                                color: "ECE37A"
+                                color: "#ECE37A"
                             },
                             {
                                 name: "GOLD",
-                                color: "E3AD39"
+                                color: "#E3AD39"
                             },
                             {
                                 name: "LIGHTGREEN",
-                                color: "BEFE8F"
+                                color: "#BEFE8F"
                             },
                             {
                                 name: "GREEN",
-                                color: "40FE40"
+                                color: "#40FE40"
                             },
                             {
                                 name: "LIME",
-                                color: "A1FE47"
+                                color: "#A1FE47"
                             },
                             {
                                 name: "GREY",
-                                color: "C4C9CF"
+                                color: "#C4C9CF"
                             },
                             {
                                 name: "GREY2",
-                                color: "AFC2D8"
+                                color: "#AFC2D8"
                             }
                         ]
                     }
