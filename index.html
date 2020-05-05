@@ -33,10 +33,6 @@
                 color: #fe4040;
             }
 
-            .preview-lightred {
-                color: #ea4b4b;
-            }
-
             .preview-darkred {
                 color: #fc0000;
             }
@@ -138,10 +134,6 @@
                                 color: "#FE4040"
                             },
                             {
-                                name: "LIGHTRED",
-                                color: "#EA4B4B"
-                            },
-                            {
                                 name: "DARKRED",
                                 color: "#FC0000"
                             },
@@ -216,7 +208,8 @@
                     rendered(){
                         let vm = this;
                         let outputStr = this.content;
-                        const iterator = this.content.matchAll(colorRegEx);
+                        outputStr = outputStr.replace(/{BREAK}/g, "<br>{DEFAULT}");
+                        const iterator = outputStr.matchAll(colorRegEx);
                         let next = iterator.next();
                         let i = 0;
                         while(next.value){
